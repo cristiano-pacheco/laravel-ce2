@@ -1,5 +1,6 @@
 <?php namespace CodeCommerce\Http\Controllers;
 
+use CodeCommerce\Category;
 class WelcomeController extends Controller {
 
 	/*
@@ -31,6 +32,12 @@ class WelcomeController extends Controller {
 	public function index()
 	{
 		return view('welcome');
+	}
+	
+	public function exemplo()
+	{
+	    $categories = Category::all();
+	    return view('exemplo',compact('categories'));
 	}
 
 }
