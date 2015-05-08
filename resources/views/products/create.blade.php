@@ -17,6 +17,11 @@
     {!! Form::open(['url'=>'products']) !!}
         
         <div class="form-group">
+            {!! Form::label('category','Category:') !!}
+            {!! Form::select('category_id',$categories, null, ['class'=>'form-control']) !!}
+        </div>
+        
+        <div class="form-group">
             {!! Form::label('name','Name:') !!}
             {!! Form::text('name',null, ['class'=>'form-control']) !!}
         </div>
@@ -44,7 +49,7 @@
         </div>
         
         <div class="form-group">
-            {!! Form::submit('Add Categoty',['class'=>'btn btn-primary']) !!}
+            {!! Form::submit('Add Product',['class'=>'btn btn-primary']) !!}
         </div>    
     {!! Form::close() !!}
 	
