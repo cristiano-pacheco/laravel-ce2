@@ -14,7 +14,7 @@
     
     @endif
     
-    {!! Form::open(['url'=>'categories']) !!}
+    {!! Form::open(['route'=>'categories.store']) !!}
         
         <div class="form-group">
             {!! Form::label('name','Name:') !!}
