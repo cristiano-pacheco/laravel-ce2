@@ -1,13 +1,16 @@
 <?php
 namespace CodeCommerce\Http\Controllers;
 
-use CodeCommerce\Http\Requests;
 use CodeCommerce\Http\Controllers\Controller;
 
-use Illuminate\Http\Request;
-use CodeCommerce\Product;
-use CodeCommerce\Http\Requests\ProductRequest;
 use CodeCommerce\Category;
+use CodeCommerce\Http\Requests;
+use CodeCommerce\Product;
+use CodeCommerce\ProductImage;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
+use CodeCommerce\Http\Requests\ProductImageRequest;
 
 class ProductsController extends Controller 
 {
@@ -66,6 +69,47 @@ class ProductsController extends Controller
     {
         $this->productsModel->find($id)->delete();
         return redirect()->route('products');
+    }
+    
+    public function images($id)
+    {
+        $product = $this->productsModel->find($id);
+        
+        return view('products.images',compact('product'));
+    }
+    
+    public function createImage($id)
+    {
+        $product = $this->productsModel->find($id);
+        return view('products.create_image',compact('product'));
+    }
+    
+    public function storeImage(ProductImageRequest $request,$id, ProductImage $productImage)
+    {
+        $file = $request->file('image');
+        $extension = $file->getClientOriginalExtension();
+        
+        $image = $productImage::create(['product_id'=>$id,'extension'=>$extension]);
+        
+        Storage::disk('public_local')->put($image->id.'.'.$extension,File::get($file));
+        
+        return redirect()->route('products.images',['id'=>$id]);
+        
+    }
+    
+    public function destroyImage(ProductImage $producImage, $id)
+    {
+        $image = $producImage->find($id);
+        
+        if(file_exists(public_path().'/uploads/'.$image->id.'.'.$image->id)){
+            Storage::disk('public_local')->delete($image->id.'.'.$image->extension);
+        }
+        
+        $product = $image->product;
+        
+        $image->delete();
+        
+        return redirect()->route('products.images',['id'=>$product->id]);
     }
 
 }
