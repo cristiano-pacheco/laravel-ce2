@@ -4,3 +4,4 @@
 .project
 .settings/
 .buildpath
+/storage/database.sqlite

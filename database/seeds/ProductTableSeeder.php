@@ -1,13 +1,15 @@
 <?php
+
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 use Faker\Factory as Faker;
 use CodeCommerce\Product;
 
-class ProductTableSeeder extends Seeder
+class ProductTableSeeder extends Seeder 
 {
-    public function run()
-    {
+
+	public function run()
+	{
         DB::table('products')->truncate();
         
         $faker = Faker::create();

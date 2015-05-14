@@ -1,23 +1,31 @@
 <?php
+
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
-use Faker\Factory as Faker;
 use CodeCommerce\Category;
+use Faker\Factory as Faker;
 
-class CategoryTableSeeder extends Seeder
-{
-    public function run()
-    {
+
+class CategoryTableSeeder extends Seeder {
+
+	/**
+	 * Run the database seeds.
+	 *
+	 * @return void
+	 */
+	public function run()
+	{
+
         DB::table('categories')->truncate();
         
         $faker = Faker::create();
         
-        foreach(range (1,15) as $i){
+        foreach ( range(1,15) as $i) {
+        
             Category::create([
                 'name' => $faker->word(),
-                'description' => $faker->sentence()
+                'description' => $faker->sentence(),
             ]);
         }
-        
-    }
+	}
 }
