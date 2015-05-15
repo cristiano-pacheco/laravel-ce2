@@ -4,4 +4,5 @@
 .project
 .settings/
 .buildpath
-/storage/database.sqlite
+storage/database.sqlite
+/public/uploads
