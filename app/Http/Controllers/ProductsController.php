@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
 use CodeCommerce\Http\Requests\ProductImageRequest;
+use CodeCommerce\Http\Requests\ProductRequest;
 
 class ProductsController extends Controller 
 {
@@ -101,7 +102,7 @@ class ProductsController extends Controller
     {
         $image = $producImage->find($id);
         
-        if(file_exists(public_path().'/uploads/'.$image->id.'.'.$image->id)){
+        if(file_exists(public_path().'/uploads/'.$image->id.'.'.$image->extension)){
             Storage::disk('public_local')->delete($image->id.'.'.$image->extension);
         }
         
