@@ -11,7 +11,6 @@
                 <li>{{$error}}</li>
             @endforeach
         </ul>
-    
     @endif
     
     {!! Form::open(['route'=>'categories.store']) !!}

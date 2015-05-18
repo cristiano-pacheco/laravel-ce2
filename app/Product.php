@@ -15,5 +15,15 @@ class Product extends Model {
 	{
 	    return $this->hasMany('CodeCommerce\ProductImage');
 	}
+	
+	public function scopeFeatured($query)
+	{
+	    return $query->where('featured','=',1);
+	}
+	
+	public function scopeRecommended($query)
+	{
+	    return $query->where('recommend','=',1);
+	}
 
 }

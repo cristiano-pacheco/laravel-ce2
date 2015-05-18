@@ -13,7 +13,7 @@
 
 
 
-Route::get('/', 'WelcomeController@index');
+Route::get('/', 'StoreController@index');
 
 Route::get('home', 'HomeController@index');
 

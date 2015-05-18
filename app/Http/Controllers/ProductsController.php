@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
 use CodeCommerce\Http\Requests\ProductImageRequest;
+use CodeCommerce\Http\Requests\ProductRequest;
 
 class ProductsController extends Controller 
 {
