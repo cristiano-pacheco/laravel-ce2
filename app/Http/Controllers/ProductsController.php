@@ -1,10 +1,7 @@
 <?php
 namespace CodeCommerce\Http\Controllers;
 
-use CodeCommerce\Http\Requests;
 use CodeCommerce\Http\Controllers\Controller;
-
-use Illuminate\Http\Request;
 use CodeCommerce\Product;
 use CodeCommerce\Http\Requests\ProductRequest;
 use CodeCommerce\Category;
@@ -33,8 +30,14 @@ class ProductsController extends Controller
     public function store(ProductRequest $request)
     {
         $input = $request->all();
+
+        $tags = $this->productsModel->processingTags($input);
+
         $product = $this->productsModel->fill($input);
         $product->save();
+        
+        $product->tags()->sync($tags);        
+
         return redirect()->route('products');
     }
     
@@ -43,6 +46,7 @@ class ProductsController extends Controller
         $categories = $category->lists('name','id');
         
         $product = $this->productsModel->find($id);
+
         return view('products.edit',compact('product','categories'));
     }
     
@@ -58,7 +62,12 @@ class ProductsController extends Controller
             $data['recommend'] = false;
         }
         
-        $this->productsModel->find($id)->update($data);
+        $tags = $this->productsModel->processingTags($data);
+
+        $product = $this->productsModel->find($id);
+        $product->update($data);
+        $product->tags()->sync($tags);
+        
         return redirect()->route('products');
     }
     
