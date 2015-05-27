@@ -19,5 +19,17 @@ class StoreController extends Controller
 	    
 	    return view('store.index',compact('categories','produtosFeatured','produtosRecommended'));
 	}
+	
+	public function listByCategory($idCategory)
+	{
+	    
+	    $produtos = Product::where('category_id','=',$idCategory)->get();
+	    
+	    $category = Category::find($idCategory);
+	    
+	    $categories = Category::all();
+	     
+	    return view('store.listByCategory',compact('categories','produtos','category'));
+	}
 
 }
