@@ -15,7 +15,9 @@
 
 Route::get('/', 'StoreController@index');
 
-Route::get('/category/{id}',['as'=>'store.listByCategory','uses'=>'StoreController@listByCategory', 'where'=> ['id'=> '[0-9]+']] );
+Route::get('/category/{id}',['as'=>'store.category','uses'=>'StoreController@category', 'where'=> ['id'=> '[0-9]+']] );
+Route::get('/product/{id}',['as'=>'store.product','uses'=>'StoreController@product', 'where'=> ['id'=> '[0-9]+']] );
+Route::get('/tag/{id}',['as'=>'store.tag','uses'=>'StoreController@tag', 'where'=> ['id'=> '[0-9]+']] );
 
 Route::get('home', 'HomeController@index');
 

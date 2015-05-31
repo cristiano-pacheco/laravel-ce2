@@ -26,6 +26,16 @@ class Product extends Model
 	{
 	    return $query->where('recommend','=',1);
 	}
+	
+	public function scopeOfCategory($query,$type)
+	{
+	    return $query->where('category_id','=',$type);
+	}
+	
+	public function scopeOfTag($query, $type)
+	{
+	    return $query->where('tag_id',$type);
+	}
 
 	public function tags()
 	{
@@ -76,6 +86,7 @@ class Product extends Model
 	    return $tagsId;
 
 	}
+	
 
 }
 

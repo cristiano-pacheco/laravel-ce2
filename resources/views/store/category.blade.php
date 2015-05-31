@@ -5,5 +5,5 @@
 @stop
 
 @section('content')
-    @include('store.products')
+    @include('store.partial.category')
 @stop
