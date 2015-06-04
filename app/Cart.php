@@ -20,7 +20,7 @@ class Cart
             ]    
         ];
         
-        return $this->items;
+        return ksort($this->items);
     }
     
     public function remove($id)

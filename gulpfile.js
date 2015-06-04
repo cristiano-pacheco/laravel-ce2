@@ -29,6 +29,7 @@ elixir(function(mix) {
 	   'price-range.js',
 //	   'jquery.prettyPhoto.js',
 	   'main.js',
+	   'meiomask.min.js',
 	],'public/js/all.js');
 	
 	mix.version(['css/all.css','js/all.js']);

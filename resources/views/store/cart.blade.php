@@ -23,7 +23,7 @@
                 <tbody>
                 
                 @forelse($cart->all() as $k => $item)
-                    <tr>
+                    <tr data-id="{{ $k }}">
                         <td class="cart_product"> 
                             <a href="{{ route('store.product',['id'=>$k])}}">
                                 Imagem
@@ -43,7 +43,9 @@
                         </td>
                         
                         <td class="cart_quantity">
-                           {{ $item['qtd'] }}   
+                           <div class="col-md-2">
+                           {!! Form::text('qtd',$item['qtd'], ['class'=>"form-control qtd",'maxlength'=>'2']) !!}
+                           </div> 
                         </td>
                         
                         <td class="cart_total">
@@ -88,4 +90,39 @@
     
   </section>
    
+@stop
+
+@section('scripts')
+<script>
+
+function updateCart(obj){
+	alert(obj);
+}
+
+$(function(){
+
+	$('.qtd').on('focusout', function(e){
+
+		var row = $(this).parents('tr');
+		var id = row.data('id');
+
+		var qtd = $(this).val();
+
+		if(qtd <=0)
+		{
+			alert('A quantidade do produto deve ser maior que 0');
+			$(this).focus();
+		}
+		else
+		{
+    		url = 'cart/update/'+id+'/'+qtd;
+    		$.get(url,function(){
+    				window.location="cart";
+    		});
+		}
+		
+	});
+	
+});
+</script>
 @stop
