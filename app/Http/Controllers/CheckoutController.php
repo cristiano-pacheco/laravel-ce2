@@ -31,6 +31,9 @@ class CheckoutController extends Controller
 	       }
 	       
 	       dd($order);
+	    }else{
+	        echo '<script>alert("adicione produtos ao carrinho de compras");</script>';
+            echo '<script>window.location = "/cart";</script>';
 	    }
 	}
 
