@@ -24,11 +24,13 @@ Route::get('cart/add/{id}',['as'=>'cart.add','uses'=>'CartController@add'] );
 Route::get('cart/destroy/{id}',['as'=>'cart.destroy','uses'=>'CartController@destroy'] );
 Route::get('cart/update/{id}/{qtd}',['as'=>'cart.update','uses'=>'CartController@update'] );
 
+Route::get('checkout/placeOrder',['as'=>'checkout.place','uses'=>'CheckoutController@place'] );
+
 Route::get('home', 'HomeController@index');
 
 // Route::get('exemplo', 'WelcomeController@exemplo');
 
-Route::group(['prefix'=>'admin', 'where'=> ['id'=> '[0-9]+']], function ()
+Route::group(['prefix'=>'admin','middleware'=>'auth,admin','middleware'=>'admin', 'where'=> ['id'=> '[0-9]+']], function ()
 {
     
     Route::group(['prefix'=>'categories'],function(){

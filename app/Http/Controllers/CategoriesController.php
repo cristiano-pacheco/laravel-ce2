@@ -1,11 +1,9 @@
 <?php namespace CodeCommerce\Http\Controllers;
 
-use CodeCommerce\Http\Requests;
 use CodeCommerce\Http\Controllers\Controller;
-
-use Illuminate\Http\Request;
 use CodeCommerce\Category;
 use CodeCommerce\Http\Requests\CategoryRequest;
+use Illuminate\Support\Facades\Auth;
 
 class CategoriesController extends Controller 
 {
