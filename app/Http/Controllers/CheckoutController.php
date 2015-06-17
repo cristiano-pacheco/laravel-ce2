@@ -30,7 +30,10 @@ class CheckoutController extends Controller
 	           $order->items()->create(['product_id'=>$k,'price'=>$item['price'],'qtd'=>$item['qtd']]);
 	       }
 	       
-	       dd($order);
+	       $cart->clear();
+	       
+	       return view('store.checkout',compact('order'));
+
 	    }else{
 	        echo '<script>alert("adicione produtos ao carrinho de compras");</script>';
             echo '<script>window.location = "/cart";</script>';

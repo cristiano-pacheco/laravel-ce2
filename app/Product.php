@@ -48,9 +48,9 @@ class Product extends Model
 	    $tags = NULL;
 	    
 	    $data = $this->tags()->lists('name');
-
-	    if(!empty($data))
-	       $tags = implode(',', $data);
+	    
+	    //if(!empty($data))
+	       //$tags = implode(',', $data);
 	    
 	    return $tags;
 	}
