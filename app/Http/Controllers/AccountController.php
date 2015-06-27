@@ -16,6 +16,7 @@ class AccountController extends Controller
     
     public function orders()
     {
-        
+        $orders = \Auth::user()->orders;
+        return view('store.orders',compact('orders'));
     }
 }

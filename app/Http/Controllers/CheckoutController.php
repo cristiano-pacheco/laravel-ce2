@@ -5,6 +5,7 @@ use CodeCommerce\OrderItem;
 use Illuminate\Support\Facades\Session;
 use CodeCommerce\Order;
 use Illuminate\Support\Facades\Auth;
+use CodeCommerce\Events\CheckoutEvent;
 
 class CheckoutController extends Controller 
 {
@@ -31,6 +32,8 @@ class CheckoutController extends Controller
 	       }
 	       
 	       $cart->clear();
+	       
+	       event(new CheckoutEvent());
 	       
 	       return view('store.checkout',compact('order'));
 

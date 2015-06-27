@@ -69,6 +69,13 @@ Route::group(['prefix'=>'admin','middleware'=>'auth,admin','middleware'=>'admin'
             
         });
     });
+    
+    // Orders
+    Route::group(['prefix'=>'orders'],function(){
+        Route::get('/', ['as' => 'orders', 'uses' => 'OrdersController@index']);
+        Route::get('edit/{id}', ['as' => 'orders.edit', 'uses' => 'OrdersController@edit']);
+        Route::put('update/{id}', ['as' => 'orders.update', 'uses' => 'OrdersController@update']);
+    });
 
 });
 
