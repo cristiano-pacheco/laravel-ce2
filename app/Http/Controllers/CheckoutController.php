@@ -5,6 +5,7 @@ use CodeCommerce\OrderItem;
 use Illuminate\Support\Facades\Session;
 use CodeCommerce\Order;
 use Illuminate\Support\Facades\Auth;
+use CodeCommerce\Events\CheckoutEvent;
 
 class CheckoutController extends Controller 
 {
@@ -30,7 +31,12 @@ class CheckoutController extends Controller
 	           $order->items()->create(['product_id'=>$k,'price'=>$item['price'],'qtd'=>$item['qtd']]);
 	       }
 	       
-	       dd($order);
+	       $cart->clear();
+	       
+	       event(new CheckoutEvent());
+	       
+	       return view('store.checkout',compact('order'));
+
 	    }else{
 	        echo '<script>alert("adicione produtos ao carrinho de compras");</script>';
             echo '<script>window.location = "/cart";</script>';

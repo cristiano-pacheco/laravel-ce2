@@ -4,6 +4,8 @@ use CodeCommerce\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 use Illuminate\Support\Facades\Validator;
 use CodeCommerce\User;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 
 class AuthController extends Controller {
 
@@ -28,6 +30,52 @@ class AuthController extends Controller {
 	public function __construct()
 	{
 		$this->middleware('guest', ['except' => 'getLogout']);
+	}
+	
+	/**
+	 * Show the application registration form.
+	 *
+	 * @return \Illuminate\Http\Response
+	 */
+	public function getRegister()
+	{
+	    return view('auth.register');
+	}
+	
+	public function validaCadastro(array $data)
+	{
+	    return Validator::make($data, [
+	        'name' => 'required|max:255',
+	        'email' => 'required|email|max:255|unique:users',
+	        'password' => 'required|confirmed|min:6',
+	        'cep' => 'required',
+	        'endereco' => 'required',
+	        'numero' => 'required',
+	        'bairro' => 'required',
+	        'cidade' => 'required',
+	        'estado' => 'required',
+	    ]);  
+	}
+	
+	/**
+	 * Handle a registration request for the application.
+	 *
+	 * @param  \Illuminate\Http\Request  $request
+	 * @return \Illuminate\Http\Response
+	 */
+	public function postRegister(Request $request)
+	{
+	    $validator = $this->validaCadastro($request->all());
+	
+	    if ($validator->fails()) {
+	        $this->throwValidationException(
+	            $request, $validator
+	        );
+	    }
+	
+	    Auth::login($this->create($request->all()));
+	
+	    return redirect($this->redirectPath());
 	}
 	
 	
@@ -58,6 +106,12 @@ class AuthController extends Controller {
 	        'name' => $data['name'],
 	        'email' => $data['email'],
 	        'password' => bcrypt($data['password']),
+	        'cep' => $data['cep'],
+	        'endereco' => $data['endereco'],
+	        'numero' => $data['numero'],
+	        'cidade' => $data['cidade'],
+	        'estado' => $data['estado'],
+	        'bairro' => $data['bairro'],
 	    ]);
 	}
 	

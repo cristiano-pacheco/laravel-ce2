@@ -24,7 +24,15 @@ Route::get('cart/add/{id}',['as'=>'cart.add','uses'=>'CartController@add'] );
 Route::get('cart/destroy/{id}',['as'=>'cart.destroy','uses'=>'CartController@destroy'] );
 Route::get('cart/update/{id}/{qtd}',['as'=>'cart.update','uses'=>'CartController@update'] );
 
-Route::get('checkout/placeOrder',['as'=>'checkout.place','uses'=>'CheckoutController@place'] );
+
+Route::group(['middleware'=>'auth'], function(){
+    
+    Route::get('checkout/placeOrder',['as'=>'checkout.place','uses'=>'CheckoutController@place'] );
+    Route::get('account/orders',['as'=>'account.orders','uses'=>'AccountController@orders'] );
+    Route::get('checkout/placeOrder',['as'=>'checkout.place','uses'=>'CheckoutController@place'] );
+    
+});
+
 
 Route::get('home', 'HomeController@index');
 
@@ -60,6 +68,13 @@ Route::group(['prefix'=>'admin','middleware'=>'auth,admin','middleware'=>'admin'
             Route::get('destroy/{id}/image', ['as' => 'products.images.destroy', 'uses' => 'ProductsController@destroyImage']);
             
         });
+    });
+    
+    // Orders
+    Route::group(['prefix'=>'orders'],function(){
+        Route::get('/', ['as' => 'orders', 'uses' => 'OrdersController@index']);
+        Route::get('edit/{id}', ['as' => 'orders.edit', 'uses' => 'OrdersController@edit']);
+        Route::put('update/{id}', ['as' => 'orders.update', 'uses' => 'OrdersController@update']);
     });
 
 });
